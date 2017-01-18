@@ -11,12 +11,13 @@ $.fn.template = function (data) {
 };
 
 App.controller('home', function(page) {
+    $top_container = $(page).find('#top-stories-container');
     $container = $(page).find('#js-story-container');
     $template = $(page).find('#js-story-template');
 
     $.getJSON('/api/4/news/latest', function (data) {
         if (data.stories && data.stories.length) {
-            for (var i = 0, n = data.stories.length; i < n; i++) {
+            for (var i = 0, m = data.stories.length; i < m; i++) {
                 var tplData = {
                     image: '/img/proxy?img=' + encodeURI(data.stories[i].images[0]),
                     title: data.stories[i].title
@@ -25,6 +26,16 @@ App.controller('home', function(page) {
                 $container.append($template.template(tplData));
             }
         }
+        // if (data.top_stories && data.top_stories.length) {
+        //     for (var j = 0, n = data.top_stories.length; j < n; j++) {
+        //         var ttplData = {
+        //             image: '/img/proxy?img=' + encodeURI(data.top_stories[j].image),
+        //             title: data.top_stories[j].title
+        //         };
+        //
+        //         $top_container.append($template.template(ttplData));
+        //     }
+        // }
     });
 });
 
