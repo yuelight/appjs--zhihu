@@ -2,7 +2,7 @@
     margin-right: 10px;
 }
 
-li {
+#js-story-container .story {
     height: 60px;
     width: 90%;
     margin: 10px auto;
@@ -64,4 +64,18 @@ li {
     -ms-flex-order: 1;
     order: 1;
     margin: 0 0 0 1em
+}
+
+.story-cover {
+    width: 100%;
+}
+
+.story-content {
+    margin: 10px 0;
+    line-height: 1.5em;
+    text-indent: 2em;
+}
+
+.story-content .content-image {
+    width: 90%;
 }

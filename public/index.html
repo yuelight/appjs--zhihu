@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>My App</title>
+    <title>知乎日报</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
     <link rel="stylesheet" href="css/app.min.css">
     <link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css">
@@ -17,20 +17,15 @@
         <div class="app-content">
 
             <script type="text/x-template" id="js-story-template">
-                <li>
-                    <div class="media">
+                <li class="story app-button" data-target="detail" data-target-args='{"id":${id}}'>
+                    <div class="media media--center">
                         <div class="media-body">
-                            <h3 class="media-title">${title}</h3>
+                            <p class="media-content">${title}</p>
                         </div>
                         <img class="media-figure" src="${image}">
                     </div>
                 </li>
             </script>
-
-            <!-- <div class="app-section-stories">
-                <ul class="app-list" id="top-stories-container">
-                </ul>
-            </div> -->
 
             <div class="app-section-stories">
                 <ul class="app-list" id="js-story-container">
@@ -39,13 +34,14 @@
         </div>
     </div>
 
-    <div class="app-page" data-page="page2">
+    <div class="app-page" data-page="detail">
         <div class="app-topbar">
             <div class="app-button left" data-back data-autotitle></div>
-            <div class="app-title">Page 2</div>
+            <div class="js-story-title app-title">详情页</div>
         </div>
         <div class="app-content">
-            Page 2 is lonely
+            <img class="js-story-cover story-cover">
+            <div class="js-story-content story-content"></div>
         </div>
     </div>
 

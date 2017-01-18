@@ -10,8 +10,11 @@ $.fn.template = function (data) {
     return template;
 };
 
-App.controller('home', function(page) {
-    $top_container = $(page).find('#top-stories-container');
+function getImgProxyUrl (img) {
+    return '/img/proxy?img=' + encodeURIComponent(img);
+}
+
+App.controller('home', function (page) {
     $container = $(page).find('#js-story-container');
     $template = $(page).find('#js-story-template');
 
@@ -19,28 +22,28 @@ App.controller('home', function(page) {
         if (data.stories && data.stories.length) {
             for (var i = 0, m = data.stories.length; i < m; i++) {
                 var tplData = {
-                    image: '/img/proxy?img=' + encodeURI(data.stories[i].images[0]),
-                    title: data.stories[i].title
+                    image: getImgProxyUrl(data.stories[i].images[0]),
+                    title: data.stories[i].title,
+                    id: data.stories[i].id
                 };
 
                 $container.append($template.template(tplData));
             }
         }
-        // if (data.top_stories && data.top_stories.length) {
-        //     for (var j = 0, n = data.top_stories.length; j < n; j++) {
-        //         var ttplData = {
-        //             image: '/img/proxy?img=' + encodeURI(data.top_stories[j].image),
-        //             title: data.top_stories[j].title
-        //         };
-        //
-        //         $top_container.append($template.template(ttplData));
-        //     }
-        // }
     });
 });
 
-App.controller('page2', function(page) {
-    // put stuff here
+App.controller('detail', function (page, args) {
+    $.getJSON('/api/4/news/' + args.id, function (data) {
+        var body = $(data.body);
+        body.find('img').each(function (i, img) {
+            var ndImg = $(img);
+            ndImg.attr('src', getImgProxyUrl(ndImg.attr('src')));
+        });
+        $(page).find('.js-story-title').html(data.title);
+        $(page).find('.js-story-cover').attr('src', getImgProxyUrl(data.image));
+        $(page).find('.js-story-content').html(body);
+    });
 });
 
 try {
