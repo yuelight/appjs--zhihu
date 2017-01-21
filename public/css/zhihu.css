@@ -2,6 +2,17 @@
     margin-right: 10px;
 }
 
+#top-stories-container {
+    position: relative;
+    margin-top: 10px;
+}
+
+#top-stories-container .story {
+    height: 60px;
+    width: 90%;
+    box-shadow: 5px 3px 3px #ccc;
+}
+
 #js-story-container .story {
     height: 60px;
     width: 90%;
@@ -47,8 +58,14 @@
 
 .media-title {
     line-height: 18px;
-    white-space: normal;
     margin: .5em 0 .5em;
+}
+
+.media-content {
+    white-space: normal;
+    margin-right: 15px;
+    margin-top: 5px;
+    line-height: 20px;
 }
 
 .media--center {

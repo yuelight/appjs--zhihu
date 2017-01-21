@@ -15,6 +15,7 @@ function getImgProxyUrl (img) {
 }
 
 App.controller('home', function (page) {
+    var $top_container = $(page).find('#top-stories-container');
     var $container = $(page).find('#js-story-container');
     var $template = $(page).find('#js-story-template');
 
@@ -29,6 +30,22 @@ App.controller('home', function (page) {
 
                 $container.append($template.template(tplData));
             }
+        }
+
+        if (data.top_stories && data.top_stories.length) {
+            for (var j = 0, n = data.top_stories.length; j < n; j++) {
+                var ttplData = {
+                    image: '/img/proxy?img=' + encodeURI(data.top_stories[j].image),
+                    title: data.top_stories[j].title,
+                    id: data.top_stories[j].id
+                };
+
+                $top_container.append($template.template(ttplData));
+            }
+            $top_container.css({
+                'height': 60 * (n - 2) + 'px',
+                'overflow': 'hidden'
+            });
         }
     });
 });
