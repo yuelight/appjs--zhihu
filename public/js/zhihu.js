@@ -15,8 +15,8 @@ function getImgProxyUrl (img) {
 }
 
 App.controller('home', function (page) {
-    $container = $(page).find('#js-story-container');
-    $template = $(page).find('#js-story-template');
+    var $container = $(page).find('#js-story-container');
+    var $template = $(page).find('#js-story-template');
 
     $.getJSON('/api/4/news/latest', function (data) {
         if (data.stories && data.stories.length) {
@@ -42,7 +42,27 @@ App.controller('detail', function (page, args) {
         });
         $(page).find('.js-story-title').html(data.title);
         $(page).find('.js-story-cover').attr('src', getImgProxyUrl(data.image));
+        $(page).find('.js-comment-button').attr('data-target-args', JSON.stringify(args));
         $(page).find('.js-story-content').html(body);
+    });
+});
+
+App.controller('comments', function (page, args) {
+    var $container = $(page).find('#js-comment-container');
+    var $template = $(page).find('#js-comment-template');
+
+    $.getJSON('/api/4/news/' + args.id + '/long-comments', function (data) {
+        if (data.comments && data.comments.length) {
+            for (var i = 0, m = data.comments.length; i < m; i++) {
+                var tplData = {
+                    image: getImgProxyUrl(data.comments[i].avatar),
+                    author: data.comments[i].author,
+                    content: data.comments[i].content
+                };
+
+                $container.append($template.template(tplData));
+            }
+        }
     });
 });
 
